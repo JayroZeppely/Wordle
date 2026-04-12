@@ -1,12 +1,22 @@
 package com.example.wordle;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.FrameMetrics;
+import android.view.Menu;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +30,31 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        changeFragment(new HomeFragment());
+        BottomNavigationView navigationView = findViewById(R.id.navigation);
+        navigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.home) {
+                changeFragment(new HomeFragment());
+                return true;
+            }
+            if (id == R.id.help) {
+                changeFragment(new HelpFragment());
+                return true;
+            }
+            if (id == R.id.setting) {
+                changeFragment(new SettingsFragment());
+                return true;
+            }
+            return false;
+        });
     }
 
+    private void changeFragment(Fragment f) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.main_layout, f);
+        ft.commit();
+    }
 
 }
