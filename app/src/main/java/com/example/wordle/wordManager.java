@@ -34,7 +34,7 @@ public class wordManager {
             String json = new String(buffer,"UTF-8");
             JSONObject obj = new JSONObject(json);
 
-            maxEssais = obj.getInt("maxAttempts");
+            maxEssais = obj.getInt("essaies");
             JSONArray wordsArray = obj.getJSONArray("words");
 
             for (int i = 0; i < wordsArray.length(); i++) {

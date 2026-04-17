@@ -1,6 +1,13 @@
 package com.example.wordle;
 
+import static java.lang.Math.min;
+
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +29,7 @@ public class gameActivity extends AppCompatActivity {
 
     private List<List<TextView>> tentatives;
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,21 +45,34 @@ public class gameActivity extends AppCompatActivity {
         longueur = wm.getWordSize();
         nbEssaisMax = wm.getMaxEssais();
         tentatives = new ArrayList<>();
-        LinearLayout grille = new LinearLayout(this);
-        grille.setOrientation(LinearLayout.VERTICAL);
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
 
-        for (int ligne = 0; ligne <  nbEssaisMax; ligne++) {
+        LinearLayout container = findViewById(R.id.grille);
+
+        for (int ligne = 0; ligne < nbEssaisMax; ligne++) {
             LinearLayout linear = new LinearLayout(this);
             linear.setOrientation(LinearLayout.HORIZONTAL);
             List<TextView> ligneList = new ArrayList<>();
             for (int colonne = 0; colonne < longueur; colonne++) {
                 TextView tv = new TextView(this);
+                Log.d("GRILLE","CASE CREE");
+                tv.setBackground(getDrawable(R.drawable.border));
+                tv.setTextColor(Color.WHITE);
+                tv.setTextSize(24);
+                int taille = min((width - 30)/ longueur, 180);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(taille, taille);
+                params.setMargins(2,2,2,2);
+                tv.setLayoutParams(params);
+                tv.setGravity(Gravity.CENTER);
+                linear.setGravity(Gravity.CENTER);
                 linear.addView(tv);
                 ligneList.add(tv);
             }
+            Log.d("GRILLE","Ligne ajoutée");
             tentatives.add(ligneList);
-            grille.addView(linear);
+            container.addView(linear);
         }
     }
-
 }
