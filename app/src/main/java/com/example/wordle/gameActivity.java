@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,8 @@ public class gameActivity extends AppCompatActivity {
 
     private wordManager wm;
     private String selectWord;
+
+    private StringBuilder currentWord;
     private int longueur;
     private int nbEssaisMax;
 
@@ -108,6 +112,12 @@ public class gameActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,120);
                         btn.setLayoutParams(params);
                         ligne.addView(btn);
+                        btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ajouterLettre(lettre);
+                            }
+                        });
                         clavier.put(lettre, btn);
                     }
                     Log.d("CLAVIER",touches1.toString());
@@ -120,6 +130,12 @@ public class gameActivity extends AppCompatActivity {
                         btn.setTextSize(18);
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,120);
                         btn.setLayoutParams(params);
+                        btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ajouterLettre(lettre);
+                            }
+                        });
                         ligne.addView(btn);
                         clavier.put(lettre, btn);
                     }
@@ -133,6 +149,12 @@ public class gameActivity extends AppCompatActivity {
                     delete.setTextSize(14);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150,120);
                     delete.setLayoutParams(params);
+                    delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            supprimerLettre();
+                        }
+                    });
                     ligne.addView(delete);
                     clavier.put("←", delete);
                     for (String lettre : touches3) {
@@ -142,6 +164,12 @@ public class gameActivity extends AppCompatActivity {
                         btn.setTextSize(18);
                         params = new LinearLayout.LayoutParams(100,120);
                         btn.setLayoutParams(params);
+                        btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ajouterLettre(lettre);
+                            }
+                        });
                         ligne.addView(btn);
                         clavier.put(lettre, btn);
                     }
@@ -151,12 +179,55 @@ public class gameActivity extends AppCompatActivity {
                     enter.setTextSize(14);
                     params = new LinearLayout.LayoutParams(200,120);
                     enter.setLayoutParams(params);
+                    enter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            confirmerMot();
+                        }
+                    });
                     ligne.addView(enter);
                     clavier.put("↑", enter);
                     Log.d("CLAVIER",touches3.toString());
                     break;
             }
             azerty.addView(ligne);
+        }
+
+        partie();
+    }
+
+    private void partie() {
+        currentWord = new StringBuilder();
+    }
+
+    private void ajouterLettre(String lettre) {
+        if (currentLigne < nbEssaisMax) {
+            if (currentColonne < longueur) {
+                tentatives.get(currentLigne).get(currentColonne).setText(lettre);
+                currentColonne += 1;
+                currentWord.append(lettre);
+                Log.d("MOT",currentWord.toString());
+            }
+        }
+    }
+    private void supprimerLettre() {
+        if (currentColonne > 0) {
+            currentColonne -=1;
+            tentatives.get(currentLigne).get(currentColonne).setText("");
+            currentWord.deleteCharAt(currentWord.length() - 1);
+            Log.d("MOT",currentWord.toString());
+        }
+    }
+
+    private void confirmerMot() {
+        if (currentColonne == longueur) {
+            currentColonne = 0;
+            currentLigne += 1;
+            if (currentLigne >= nbEssaisMax) {
+                Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
+            }
+            currentWord = new StringBuilder();
+            Log.d("MOT",currentWord.toString());
         }
     }
 }
