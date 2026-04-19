@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,7 +20,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class gameActivity extends AppCompatActivity {
 
@@ -27,6 +32,11 @@ public class gameActivity extends AppCompatActivity {
     private int longueur;
     private int nbEssaisMax;
 
+    //Pour suivre l'avancement de la partie
+    private int currentLigne, currentColonne, currentEssaie = 0;
+
+    //Va permettre de stocker les btn pour ensuite pouvoir les modifier
+    private Map<String,Button> clavier;
     private List<List<TextView>> tentatives;
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -73,6 +83,80 @@ public class gameActivity extends AppCompatActivity {
             Log.d("GRILLE","Ligne ajoutée");
             tentatives.add(ligneList);
             container.addView(linear);
+        }
+
+        LinearLayout azerty = findViewById(R.id.clavier);
+        //Préparation clavier
+        List<String> touches1 = Arrays.asList("A","Z","E","R","T","Y","U","I","O","P");
+        List<String> touches2 = Arrays.asList("Q","S","D","F","G","H","J","K","L","M");
+        List<String> touches3 = Arrays.asList("W","X","C","V","B","N");
+
+        //Initialisation map
+        clavier = new HashMap<String,Button>();
+
+        for (int l = 0; l < 3; l++) {
+            LinearLayout ligne = new LinearLayout(this);
+            ligne.setOrientation(LinearLayout.HORIZONTAL);
+            ligne.setGravity(Gravity.CENTER);
+            switch (l) {
+                case 0 :
+                    for (String lettre : touches1) {
+                        Button btn = new Button(this);
+                        btn.setText(lettre);
+                        btn.setTextColor(Color.DKGRAY);
+                        btn.setTextSize(18);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,120);
+                        btn.setLayoutParams(params);
+                        ligne.addView(btn);
+                        clavier.put(lettre, btn);
+                    }
+                    Log.d("CLAVIER",touches1.toString());
+                    break;
+                case 1 :
+                    for (String lettre : touches2) {
+                        Button btn = new Button(this);
+                        btn.setText(lettre);
+                        btn.setTextColor(Color.DKGRAY);
+                        btn.setTextSize(18);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,120);
+                        btn.setLayoutParams(params);
+                        ligne.addView(btn);
+                        clavier.put(lettre, btn);
+                    }
+                    Log.d("CLAVIER",touches2.toString());
+                    break;
+                case 2 :
+                    //Bouton Delete
+                    Button delete = new Button(this);
+                    delete.setText("Del");
+                    delete.setTextColor(Color.DKGRAY);
+                    delete.setTextSize(14);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150,120);
+                    delete.setLayoutParams(params);
+                    ligne.addView(delete);
+                    clavier.put("←", delete);
+                    for (String lettre : touches3) {
+                        Button btn = new Button(this);
+                        btn.setText(lettre);
+                        btn.setTextColor(Color.DKGRAY);
+                        btn.setTextSize(18);
+                        params = new LinearLayout.LayoutParams(100,120);
+                        btn.setLayoutParams(params);
+                        ligne.addView(btn);
+                        clavier.put(lettre, btn);
+                    }
+                    Button enter = new Button(this);
+                    enter.setText("Enter");
+                    enter.setTextColor(Color.DKGRAY);
+                    enter.setTextSize(14);
+                    params = new LinearLayout.LayoutParams(200,120);
+                    enter.setLayoutParams(params);
+                    ligne.addView(enter);
+                    clavier.put("↑", enter);
+                    Log.d("CLAVIER",touches3.toString());
+                    break;
+            }
+            azerty.addView(ligne);
         }
     }
 }
