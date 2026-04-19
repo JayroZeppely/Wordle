@@ -43,6 +43,8 @@ public class gameActivity extends AppCompatActivity {
     private Map<String,Button> clavier;
     private List<List<TextView>> tentatives;
 
+    private Button delete, enter;
+
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +145,7 @@ public class gameActivity extends AppCompatActivity {
                     break;
                 case 2 :
                     //Bouton Delete
-                    Button delete = new Button(this);
+                    delete = new Button(this);
                     delete.setText("Del");
                     delete.setTextColor(Color.DKGRAY);
                     delete.setTextSize(14);
@@ -173,7 +175,7 @@ public class gameActivity extends AppCompatActivity {
                         ligne.addView(btn);
                         clavier.put(lettre, btn);
                     }
-                    Button enter = new Button(this);
+                    enter = new Button(this);
                     enter.setText("Enter");
                     enter.setTextColor(Color.DKGRAY);
                     enter.setTextSize(14);
@@ -198,6 +200,8 @@ public class gameActivity extends AppCompatActivity {
 
     private void partie() {
         currentWord = new StringBuilder();
+        delete.setEnabled(false);
+        enter.setEnabled(false);
     }
 
     private void ajouterLettre(String lettre) {
@@ -207,6 +211,10 @@ public class gameActivity extends AppCompatActivity {
                 currentColonne += 1;
                 currentWord.append(lettre);
                 Log.d("MOT",currentWord.toString());
+                if (currentColonne > 0 )
+                    delete.setEnabled(true);
+                if (currentColonne == longueur)
+                    enter.setEnabled(true);
             }
         }
     }
@@ -216,6 +224,11 @@ public class gameActivity extends AppCompatActivity {
             tentatives.get(currentLigne).get(currentColonne).setText("");
             currentWord.deleteCharAt(currentWord.length() - 1);
             Log.d("MOT",currentWord.toString());
+            if (currentColonne == 0)
+                delete.setEnabled(false);
+            if (currentColonne < longueur) {
+                enter.setEnabled(false);
+            }
         }
     }
 
@@ -228,6 +241,8 @@ public class gameActivity extends AppCompatActivity {
             }
             currentWord = new StringBuilder();
             Log.d("MOT",currentWord.toString());
+            delete.setEnabled(false);
+            enter.setEnabled(false);
         }
     }
 }
