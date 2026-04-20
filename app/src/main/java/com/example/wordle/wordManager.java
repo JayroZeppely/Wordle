@@ -16,13 +16,14 @@ public class wordManager {
     private List<String> mots;
     private int maxEssais;
     private String currentMot;
+    private String langue;
 
-    public wordManager(Context context) {
-        getWords(context);
+    public wordManager(Context context, String langue) {
+        getWords(context, langue);
         selectWord();
     }
 
-    private void getWords(Context context) {
+    private void getWords(Context context, String langue) {
         mots = new ArrayList<>();
         try {
             InputStream is = context.getResources().openRawResource(R.raw.words);
@@ -35,7 +36,7 @@ public class wordManager {
             JSONObject obj = new JSONObject(json);
 
             maxEssais = obj.getInt("essaies");
-            JSONArray wordsArray = obj.getJSONArray("words");
+            JSONArray wordsArray = obj.getJSONArray(langue);
 
             for (int i = 0; i < wordsArray.length(); i++) {
                 mots.add(wordsArray.getString(i).toUpperCase());

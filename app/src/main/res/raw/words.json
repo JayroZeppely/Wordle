@@ -1,22 +1,37 @@
 {
-  "words" : [
+  "french": [
     "ARBRE",
+    "AVION",
     "BANANE",
     "BISON",
     "CERISE",
     "CHIEN",
     "CHAT",
     "FILE",
+    "GARCON",
     "LABEL",
     "LUNE",
     "MAISON",
     "MAMAN",
+    "MIEL",
+    "NOMBRE",
     "NONNE",
+    "OMBRE",
     "ORANGE",
     "PAIN",
     "SOLEIL",
     "TABLE",
+    "TIRADE",
     "TOMBER"
+  ],
+  "english" : [
+    "APPLE",
+    "SPIDER",
+    "TREE"
+  ],
+  "spain" : [
+    "HABLAR",
+    "TENER"
   ],
   "essaies" : 6
 }

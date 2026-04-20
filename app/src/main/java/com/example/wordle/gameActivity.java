@@ -56,7 +56,7 @@ public class gameActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        wm = new wordManager(this);
+        wm = new wordManager(this, "french");
         selectWord = wm.getCurrentWord();
         longueur = wm.getWordSize();
         nbEssaisMax = wm.getMaxEssais();
@@ -77,7 +77,7 @@ public class gameActivity extends AppCompatActivity {
                 tv.setBackground(getDrawable(R.drawable.border));
                 tv.setTextColor(Color.WHITE);
                 tv.setTextSize(24);
-                int taille = min((width - 30)/ longueur, 180);
+                int taille = min((width - 30)/ longueur, 160);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(taille, taille);
                 params.setMargins(2,2,2,2);
                 tv.setLayoutParams(params);
@@ -234,15 +234,35 @@ public class gameActivity extends AppCompatActivity {
 
     private void confirmerMot() {
         if (currentColonne == longueur) {
+            verifierTentative();
             currentColonne = 0;
             currentLigne += 1;
             if (currentLigne >= nbEssaisMax) {
                 Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
+            } else {
+                currentWord = new StringBuilder();
+                Log.d("MOT",currentWord.toString());
+                delete.setEnabled(false);
+                enter.setEnabled(false);
             }
-            currentWord = new StringBuilder();
-            Log.d("MOT",currentWord.toString());
-            delete.setEnabled(false);
-            enter.setEnabled(false);
+        }
+    }
+
+    private void verifierTentative() {
+        List<TextView> tentative = tentatives.get(currentLigne);
+        if (currentWord.toString().equals(selectWord)) {
+            Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
+            for (int n = 0; n < longueur; n++) {
+                tentative.get(n).setBackgroundColor(Color.GREEN);
+            }
+        } else {
+            for (int n = 0; n < longueur; n++) {
+                if (currentWord.charAt(n) == selectWord.charAt(n)) {
+                    tentative.get(n).setBackgroundColor(Color.GREEN);
+                } else if (selectWord.contains(String.valueOf(currentWord.charAt(n))) && currentWord.charAt(n) != selectWord.charAt(n)) {
+                    tentative.get(n).setBackgroundColor(Color.YELLOW);
+                }
+            }
         }
     }
 }
