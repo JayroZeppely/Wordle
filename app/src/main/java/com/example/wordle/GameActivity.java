@@ -3,19 +3,22 @@ package com.example.wordle;
 import static java.lang.Math.min;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class gameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     private wordManager wm;
     private String selectWord;
@@ -35,6 +38,8 @@ public class gameActivity extends AppCompatActivity {
     private StringBuilder currentWord;
     private int longueur;
     private int nbEssaisMax;
+
+    private Handler mHandler;
 
     //Pour suivre l'avancement de la partie
     private int currentLigne, currentColonne, currentEssaie = 0;
@@ -56,6 +61,8 @@ public class gameActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
         wm = new wordManager(this, "french");
         selectWord = wm.getCurrentWord();
         longueur = wm.getWordSize();
@@ -250,11 +257,13 @@ public class gameActivity extends AppCompatActivity {
 
     private void verifierTentative() {
         List<TextView> tentative = tentatives.get(currentLigne);
-        if (currentWord.toString().equals(selectWord)) {
+        if (wm.isValidWord(currentWord.toString())) {
             Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
             for (int n = 0; n < longueur; n++) {
                 tentative.get(n).setBackgroundColor(Color.GREEN);
             }
+            mHandler = new Handler(Looper.getMainLooper());
+            mHandler.postDelayed(goToResult, 3000);
         } else {
             for (int n = 0; n < longueur; n++) {
                 if (currentWord.charAt(n) == selectWord.charAt(n)) {
@@ -265,4 +274,12 @@ public class gameActivity extends AppCompatActivity {
             }
         }
     }
+
+    private Runnable goToResult = new Runnable() {
+        @Override
+        public void run() {
+            Intent intent = new Intent(GameActivity.this, ResultActivity.class);
+            startActivity(intent);
+        }
+    };
 }
