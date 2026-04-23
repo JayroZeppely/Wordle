@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bouton_replay">
+        <item name="android:backgroundTint">@color/replay</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cornerRadius">0dp</item>
+    </style>
+
+    <style name="bouton_quit">
+        <item name="android:backgroundTint">@color/red</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cornerRadius">0dp</item>
+    </style>
+</resources>

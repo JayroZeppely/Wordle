@@ -7,4 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".ResultActivity">
 
+    <Button
+        android:id="@+id/btn_quit"
+        android:layout_width="150dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="200dp"
+        android:onClick="quit"
+        style="@style/bouton_quit"
+        android:text="@string/quit"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_replay"
+        style="@style/bouton_replay"
+        android:layout_width="150dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="200dp"
+        android:onClick="replay"
+        android:text="@string/replay"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

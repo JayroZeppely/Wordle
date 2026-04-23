@@ -27,6 +27,8 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private View view;
+
     Activity activity;
 
     public HomeFragment() {
@@ -63,16 +65,11 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         activity = getActivity();
-
-
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-
-    public void onStart() {
-        super.onStart();
-        Button start = (Button) activity.findViewById(R.id.btn_start);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+        Button start = view.findViewById(R.id.btn_start);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,5 +77,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        return view;
     }
 }
