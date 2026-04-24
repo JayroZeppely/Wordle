@@ -1,5 +1,7 @@
 package com.example.wordle;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,8 @@ public class SettingsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private SharedPreferences sp;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -55,10 +63,40 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    public void changeLangue(String langue) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("langue", langue);
+        editor.apply();
+        Toast.makeText(requireActivity(), "La langue a été changé en "+langue, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        sp = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        Button btn_french = view.findViewById(R.id.btn_french);
+        Button btn_english = view.findViewById(R.id.btn_english);
+        Button btn_spain = view.findViewById(R.id.btn_spain);
+        btn_french.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeLangue("french");
+            }
+        });
+        btn_english.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeLangue("english");
+            }
+        });
+        btn_spain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeLangue("spain");
+            }
+        });
+        return view;
     }
 }
