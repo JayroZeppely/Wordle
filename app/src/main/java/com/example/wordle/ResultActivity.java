@@ -35,9 +35,11 @@ public class ResultActivity extends AppCompatActivity {
 
         txt_mot.setText(mot);
         if (statut) {
-            txt_statut.setTextColor(Color.GREEN);
+            txt_mot.setTextColor(Color.GREEN);
+            txt_statut.setText(R.string.success);
         } else {
-            txt_statut.setTextColor(Color.RED);
+            txt_mot.setTextColor(Color.RED);
+            txt_statut.setText(R.string.failure);
         }
     }
 

@@ -246,8 +246,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void confirmerMot() {
-        if (currentColonne == longueur) {
-            verifierTentative();
+        if (currentColonne == longueur && wm.isValidWord(currentWord.toString())) {
+            if (verifierTentative()) {
+                Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
+                statusPartie = true;
+                mHandler = new Handler(Looper.getMainLooper());
+                mHandler.postDelayed(goToResult, 2000);
+                return;
+            }
             currentColonne = 0;
             currentLigne += 1;
             if (currentLigne >= nbEssaisMax) {
@@ -260,19 +266,19 @@ public class GameActivity extends AppCompatActivity {
                 delete.setEnabled(false);
                 enter.setEnabled(false);
             }
+        } else if (!wm.isValidWord(currentWord.toString())){
+            Toast.makeText(this, "Ce mot n'est pas dans le dictionnaire", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void verifierTentative() {
+    private boolean verifierTentative() {
         List<TextView> tentative = tentatives.get(currentLigne);
-        if (wm.isValidWord(currentWord.toString())) {
+        if (currentWord.toString().equals(selectWord)) {
             Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
             for (int n = 0; n < longueur; n++) {
                 tentative.get(n).setBackgroundColor(Color.GREEN);
             }
-            statusPartie = true;
-            mHandler = new Handler(Looper.getMainLooper());
-            mHandler.postDelayed(goToResult, 2000);
+            return true;
         } else {
             for (int n = 0; n < longueur; n++) {
                 if (currentWord.charAt(n) == selectWord.charAt(n)) {
@@ -281,6 +287,7 @@ public class GameActivity extends AppCompatActivity {
                     tentative.get(n).setBackgroundColor(Color.YELLOW);
                 }
             }
+            return false;
         }
     }
 
