@@ -3,7 +3,9 @@ package com.example.wordle;
 import static java.lang.Math.min;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +34,7 @@ import java.util.Map;
 
 public class GameActivity extends AppCompatActivity {
 
+    SharedPreferences sp;
     private wordManager wm;
     private String selectWord;
 
@@ -40,6 +43,8 @@ public class GameActivity extends AppCompatActivity {
     private int nbEssaisMax;
 
     private Handler mHandler;
+
+    private boolean statusPartie;
 
     //Pour suivre l'avancement de la partie
     private int currentLigne, currentColonne, currentEssaie = 0;
@@ -62,7 +67,8 @@ public class GameActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        sp = getSharedPreferences("SelectWord", Context.MODE_PRIVATE);
+        statusPartie = false;
         wm = new wordManager(this, "french");
         selectWord = wm.getCurrentWord();
         longueur = wm.getWordSize();
@@ -246,6 +252,8 @@ public class GameActivity extends AppCompatActivity {
             currentLigne += 1;
             if (currentLigne >= nbEssaisMax) {
                 Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
+                mHandler = new Handler(Looper.getMainLooper());
+                mHandler.postDelayed(goToResult, 2000);
             } else {
                 currentWord = new StringBuilder();
                 Log.d("MOT",currentWord.toString());
@@ -262,8 +270,9 @@ public class GameActivity extends AppCompatActivity {
             for (int n = 0; n < longueur; n++) {
                 tentative.get(n).setBackgroundColor(Color.GREEN);
             }
+            statusPartie = true;
             mHandler = new Handler(Looper.getMainLooper());
-            mHandler.postDelayed(goToResult, 3000);
+            mHandler.postDelayed(goToResult, 2000);
         } else {
             for (int n = 0; n < longueur; n++) {
                 if (currentWord.charAt(n) == selectWord.charAt(n)) {
@@ -279,6 +288,8 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void run() {
             Intent intent = new Intent(GameActivity.this, ResultActivity.class);
+            intent.putExtra("statut", statusPartie);
+            intent.putExtra("mot", selectWord);
             startActivity(intent);
         }
     };
