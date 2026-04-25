@@ -2,6 +2,7 @@ package com.example.wordle;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,11 +15,20 @@ import java.util.Random;
 public class wordManager {
 
     private List<String> mots;
-    private int maxEssais;
     private String currentMot;
     private String langue;
+    private int longueurMot;
 
-    public wordManager(Context context, String langue) {
+    public wordManager(Context context, String langueMot, int longueur, int nbEssais) {
+        langue = langueMot;
+        longueurMot = longueur;
+        if (longueurMot == 0) {
+            Random rdm = new Random();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                longueurMot = rdm.nextInt(4,6);
+            }
+        }
+        Log.e("Longueur","Longueur mot :"+longueurMot);
         getWords(context, langue);
         selectWord();
     }
@@ -35,7 +45,6 @@ public class wordManager {
             String json = new String(buffer,"UTF-8");
             JSONObject obj = new JSONObject(json);
 
-            maxEssais = obj.getInt("essaies");
             JSONArray wordsArray = obj.getJSONArray(langue);
 
             for (int i = 0; i < wordsArray.length(); i++) {
@@ -47,18 +56,17 @@ public class wordManager {
     }
 
     private void selectWord() {
+        currentMot = "";
         if (!mots.isEmpty()) {
-            Random rdn = new Random();
-            currentMot = mots.get(rdn.nextInt(mots.size()));
+            while (currentMot.length() != longueurMot) {
+                Random rdn = new Random();
+                currentMot = mots.get(rdn.nextInt(mots.size()));
+            }
         }
     }
 
     public String getCurrentWord() {
         return currentMot;
-    }
-
-    public int getMaxEssais() {
-        return maxEssais;
     }
 
     public int getWordSize() {

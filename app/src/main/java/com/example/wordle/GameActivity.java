@@ -67,13 +67,16 @@ public class GameActivity extends AppCompatActivity {
             return insets;
         });
 
-        sp = getSharedPreferences("SelectWord", Context.MODE_PRIVATE);
-        statusPartie = false;
-        wm = new wordManager(this, "french");
+        sp = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        String langue = sp.getString("langue", "french");
+        longueur = sp.getInt("longueur",0);
+        nbEssaisMax = sp.getInt("nbAttempts",6);
+        wm = new wordManager(this, langue, longueur, nbEssaisMax);
         selectWord = wm.getCurrentWord();
+        Log.d("MOT",selectWord);
         longueur = wm.getWordSize();
-        nbEssaisMax = wm.getMaxEssais();
         tentatives = new ArrayList<>();
+        statusPartie = false;
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;

@@ -6,12 +6,14 @@
     "BANANE",
     "BISON",
     "BOITE",
+    "BRETON",
     "CERISE",
     "CHAMP",
     "CHAT",
     "CHIEN",
     "CRANE",
     "DOUTE",
+    "FOUDRE",
     "FILE",
     "FILLE",
     "FOOT",
@@ -40,12 +42,16 @@
     "PLAGE",
     "PLUIE",
     "PORTE",
+    "POULE",
+    "RATER",
     "RIVAGE",
+    "ROULER",
     "ROUTE",
     "SABLE",
     "SALON",
     "SOLEIL",
     "TABLE",
+    "TAPER",
     "TIRADE",
     "TOMBER",
     "VENT"
@@ -53,6 +59,7 @@
   "english": [
     "APPLE",
     "BLACK",
+    "BLUE",
     "BREAD",
     "BROWN",
     "CHAIR",
@@ -65,12 +72,16 @@
     "HORSE",
     "HOUSE",
     "LIGHT",
+    "LINK",
     "MOMMY",
     "MOUSE",
+    "PAIN",
     "PARENT",
     "PLANE",
     "PLANT",
+    "RAIN",
     "RIVER",
+    "ROAD",
     "SHEEP",
     "SMILE",
     "SNAKE",
@@ -80,6 +91,7 @@
     "SWEET",
     "TABLE",
     "TREE",
+    "WAVE",
     "WHITE"
   ],
   "spain": [
@@ -109,6 +121,5 @@
     "TIERRA",
     "VERDE",
     "VIENTO"
-  ],
-  "essaies": 6
+  ]
 }
