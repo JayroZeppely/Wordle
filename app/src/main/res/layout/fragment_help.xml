@@ -1,16 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/help_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HelpFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/title_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="50sp"
-        android:text="@string/help" />
+        android:text="@string/help"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/txt_explications"
+        style="@style/texte"
+        android:layout_marginTop="16dp"
+        android:text="@string/explications"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_help" />
+
+    <TextView
+        android:id="@+id/txt_Rules"
+        style="@style/sub_title"
+        android:layout_marginTop="8dp"
+        android:text="@string/rules"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_explications" />
+
+    <TextView
+        android:id="@+id/txt_rule1"
+        style="@style/texte"
+        android:layout_marginTop="8dp"
+        android:text="Règle 1 : Les lettres qui sont dans le mot mais pas au bon endroit seront colorés en jaune sur la grille."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_Rules" />
+
+    <LinearLayout
+        android:id="@+id/grille1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_rule1" />
+
+    <TextView
+        android:id="@+id/txt_rule2"
+        style="@style/texte"
+        android:layout_marginTop="20dp"
+        android:text="Règle 2 : Si la lettre est dans le mot et au bon endroit alors la case devient verte."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grille1" />
+
+    <LinearLayout
+        android:id="@+id/grille2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_rule2"/>
+
+    <TextView
+        android:id="@+id/txt_rule3"
+        style="@style/texte"
+        android:layout_marginTop="20dp"
+        android:text="Règle 3 : La partie se termine lorsque toute la ligne se colorie en verte, ou bien lorsque le nombre de tentatives est écoulé."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grille2" />
+
+    <LinearLayout
+        android:id="@+id/grille3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_rule3"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

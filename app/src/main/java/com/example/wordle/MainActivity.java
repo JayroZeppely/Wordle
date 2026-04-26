@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+        navigationView.setSelectedItemId(R.id.home);
     }
 
     private void changeFragment(Fragment f) {

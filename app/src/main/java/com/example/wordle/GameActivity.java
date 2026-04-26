@@ -78,7 +78,6 @@ public class GameActivity extends AppCompatActivity {
         tentatives = new ArrayList<>();
         statusPartie = false;
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
         LinearLayout container = findViewById(R.id.grille);
