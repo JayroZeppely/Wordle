@@ -1,7 +1,10 @@
 package com.example.wordle;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +32,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private View view;
+    private SharedPreferences spScores;
 
     Activity activity;
 
@@ -62,6 +67,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,7 +83,10 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        spScores = requireActivity().getSharedPreferences("Scores", Context.MODE_PRIVATE);
+        TextView txt_score = view.findViewById(R.id.txt_score);
+        String score = String.valueOf(spScores.getInt("score",0));
+        txt_score.setText("Score actuel\n"+score);
         return view;
     }
 }

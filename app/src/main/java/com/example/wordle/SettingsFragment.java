@@ -72,19 +72,27 @@ public class SettingsFragment extends Fragment {
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("langue", langue);
         editor.apply();
-        Toast.makeText(requireActivity(), "La langue a été changé en "+langue, Toast.LENGTH_SHORT).show();
     }
 
     public void changeLongueur(int longueur) {
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("longueur", longueur);
         editor.apply();
-        Toast.makeText(requireActivity(), "La longueur a été changé en "+longueur, Toast.LENGTH_SHORT).show();
     }
 
     public void changeMaxAttempts(int nb) {
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("nbAttempts", nb);
+        editor.apply();
+    }
+
+    public void reinitialiserParams() {
+        changeLangue("french");
+        changeLongueur(0);
+        changeMaxAttempts(6);
+        SharedPreferences spScore = requireActivity().getSharedPreferences("Scores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = spScore.edit();
+        editor.putInt("score", 0);
         editor.apply();
     }
 
@@ -152,6 +160,15 @@ public class SettingsFragment extends Fragment {
                 int nb = Math.round(v);
                 txt_nbAttempts.setText(String.valueOf(nb));
                 changeMaxAttempts(nb);
+            }
+        });
+
+        Button btn_reinit = view.findViewById(R.id.btn_reinit);
+        btn_reinit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reinitialiserParams();
+                slide.setValue(6);
             }
         });
         return view;

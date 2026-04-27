@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class GameActivity extends AppCompatActivity {
 
-    SharedPreferences sp;
+    SharedPreferences sp, spScore;
     private wordManager wm;
     private String selectWord;
 
@@ -68,6 +68,7 @@ public class GameActivity extends AppCompatActivity {
         });
 
         sp = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        spScore = getSharedPreferences("Scores", Context.MODE_PRIVATE);
         String langue = sp.getString("langue", "french");
         longueur = sp.getInt("longueur",0);
         nbEssaisMax = sp.getInt("nbAttempts",6);
@@ -250,7 +251,8 @@ public class GameActivity extends AppCompatActivity {
     private void confirmerMot() {
         if (currentColonne == longueur && wm.isValidWord(currentWord.toString())) {
             if (verifierTentative()) {
-                Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Partie terminée", Toast.LENGTH_SHORT).show();
+                setScore(spScore.getInt("score",0) + 1);
                 statusPartie = true;
                 mHandler = new Handler(Looper.getMainLooper());
                 mHandler.postDelayed(goToResult, 2000);
@@ -259,7 +261,8 @@ public class GameActivity extends AppCompatActivity {
             currentColonne = 0;
             currentLigne += 1;
             if (currentLigne >= nbEssaisMax) {
-                Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Partie terminée", Toast.LENGTH_SHORT).show();
+                setScore(0);
                 mHandler = new Handler(Looper.getMainLooper());
                 mHandler.postDelayed(goToResult, 2000);
             } else {
@@ -276,7 +279,6 @@ public class GameActivity extends AppCompatActivity {
     private boolean verifierTentative() {
         List<TextView> tentative = tentatives.get(currentLigne);
         if (currentWord.toString().equals(selectWord)) {
-            Toast.makeText(this,"Parties terminée", Toast.LENGTH_SHORT).show();
             for (int n = 0; n < longueur; n++) {
                 tentative.get(n).setBackgroundColor(Color.GREEN);
             }
@@ -302,4 +304,13 @@ public class GameActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
+    private void setScore(int score) {
+        SharedPreferences.Editor editor = spScore.edit();
+        editor.putInt("score", score);
+        int best = spScore.getInt("bestScore", 0);
+        if (score > best)
+            editor.putInt("bestScore", score);
+        editor.apply();
+    }
 }
