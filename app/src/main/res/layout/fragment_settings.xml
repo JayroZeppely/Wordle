@@ -10,6 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView"
+        style="@style/texte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings"
@@ -23,6 +24,7 @@
 
     <TextView
         android:id="@+id/txt_ChoiceLanguage"
+        style="@style/texte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -36,6 +38,7 @@
         android:layout_width="347dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:columnCount="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_ChoiceLanguage">
@@ -44,12 +47,16 @@
             android:id="@+id/btn_french"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:layout_columnWeight="1"
             android:text="Français" />
 
         <Button
             android:id="@+id/btn_english"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:layout_columnWeight="1"
             android:text="Anglais" />
 
         <Button
@@ -57,11 +64,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Espagnol"
+            android:layout_margin="4dp"
+            app:layout_columnWeight="1"
             app:layout_column="2"
             app:layout_row="0" />
     </androidx.gridlayout.widget.GridLayout>
 
     <TextView
+        style="@style/texte"
         android:id="@+id/txt_lenght"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,48 +86,57 @@
         android:layout_width="347dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:columnCount="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_lenght">
 
         <Button
             android:id="@+id/btn_four"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_margin="4dp"
             android:layout_height="wrap_content"
-            android:text="4" />
+            android:text="@string/_4"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal|center_vertical" />
 
         <Button
             android:id="@+id/btn_five"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="5"
-            app:layout_column="1"
-            app:layout_row="0" />
+            android:layout_margin="4dp"
+            android:text="@string/_5"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal|center_vertical" />
 
         <Button
             android:id="@+id/btn_six"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="6"
-            app:layout_column="2"
-            app:layout_row="0" />
+            android:layout_margin="4dp"
+            android:text="@string/_6"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal|center_vertical" />
 
         <Button
             android:id="@+id/btn_random"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Random"
-            app:layout_column="3"
-            app:layout_row="0" />
+            android:layout_margin="4dp"
+            android:text="@string/random"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal|center_vertical" />
+
     </androidx.gridlayout.widget.GridLayout>
 
     <TextView
         android:id="@+id/txt_attempts"
+        style="@style/texte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="32dp"
-        android:text="Nombre d'essaies"
+        android:text="@string/nombre_d_essaies"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grill_taille_mots" />
 
@@ -125,10 +144,10 @@
         android:id="@+id/slider_attempts"
         android:layout_width="339dp"
         android:layout_height="48dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:stepSize="1"
         android:valueFrom="4"
         android:valueTo="8"
-        android:stepSize="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_value_nbAttempts" />
@@ -137,16 +156,19 @@
         android:id="@+id/txt_value_nbAttempts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="20sp"
+        android:layout_marginTop="16dp"
+        android:text="@string/defaut"
+        android:textAlignment="center"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_attempts" />
 
     <Button
         android:id="@+id/btn_reinit"
         android:layout_width="200dp"
+        style="@style/bouton_quit"
+        android:padding="20dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:text="Réinitialiser"

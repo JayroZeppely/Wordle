@@ -12,4 +12,11 @@
     <string name="explications">Le but du jeu est de déterminer le mot caché. Le mot peut avoir une longueur variable allant de 4 à 6 lettres. De même, vous avez plusieurs tentatives pour trouver le mot.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_game">Commencer</string>
+    <string name="random">Random</string>
+    <string name="_6">6</string>
+    <string name="_5">5</string>
+    <string name="_4">4</string>
+    <string name="defaut">default</string>
+    <string name="nombre_d_essaies">Nombre d\'essaies</string>
 </resources>
