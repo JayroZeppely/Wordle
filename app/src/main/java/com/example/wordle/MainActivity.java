@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.FrameMetrics;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowInsets;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -53,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
         navigationView.setSelectedItemId(R.id.home);
+
+        navigationView.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                return insets.consumeSystemWindowInsets(); // ignore les insets système
+            }
+        });
     }
 
     private void changeFragment(Fragment f) {

@@ -109,7 +109,7 @@ public class HelpFragment extends Fragment {
                             tv.setText(lettres1[0]);
                             break;
                         case 1:
-                            tv.setBackgroundColor(Color.YELLOW);
+                            tv.setBackgroundColor(getResources().getColor(R.color.wrong_place));
                             tv.setText(lettres1[1]);
                             break;
                         case 2:
@@ -122,7 +122,7 @@ public class HelpFragment extends Fragment {
                             tv.setText(lettres1[4]);
                             break;
                         case 5:
-                            tv.setBackgroundColor(Color.YELLOW);
+                            tv.setBackgroundColor(getResources().getColor(R.color.found));
                             tv.setText(lettres1[5]);
                             break;
                     }
@@ -139,21 +139,21 @@ public class HelpFragment extends Fragment {
                             tv.setText(lettres2[2]);
                             break;
                         case 3:
-                            tv.setBackgroundColor(Color.GREEN);
+                            tv.setBackgroundColor(getResources().getColor(R.color.found));
                             tv.setText(lettres2[3]);
                             break;
                         case 4:
-                            tv.setBackgroundColor(Color.GREEN);
+                            tv.setBackgroundColor(getResources().getColor(R.color.found));
                             tv.setText(lettres2[4]);
                             break;
                         case 5:
-                            tv.setBackgroundColor(Color.GREEN);
+                            tv.setBackgroundColor(getResources().getColor(R.color.found));
                             tv.setText(lettres2[5]);
                             break;
                     }
                     break;
                 case 2:
-                    tv.setBackgroundColor(Color.GREEN);
+                    tv.setBackgroundColor(getResources().getColor(R.color.found));
                     switch (list.size()) {
                         case 0:
                             tv.setText(lettres3[0]);

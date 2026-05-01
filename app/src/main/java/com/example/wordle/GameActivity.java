@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -116,6 +117,18 @@ public class GameActivity extends AppCompatActivity {
         //Initialisation map
         clavier = new HashMap<String,Button>();
 
+        //Preparation du background des boutons
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(16f);
+        drawable.setColor(getColor(R.color.vert));
+
+        GradientDrawable btns_del_enter = new GradientDrawable();
+        btns_del_enter.setShape(GradientDrawable.RECTANGLE);
+        btns_del_enter.setCornerRadius(16f);
+        btns_del_enter.setColor(Color.BLUE);
+
+
         for (int l = 0; l < 3; l++) {
             LinearLayout ligne = new LinearLayout(this);
             ligne.setOrientation(LinearLayout.HORIZONTAL);
@@ -125,9 +138,11 @@ public class GameActivity extends AppCompatActivity {
                     for (String lettre : touches1) {
                         Button btn = new Button(this);
                         btn.setText(lettre);
-                        btn.setTextColor(Color.DKGRAY);
-                        btn.setTextSize(18);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,120);
+                        btn.setTextColor(Color.WHITE);
+                        btn.setBackground(drawable);
+                        btn.setTextSize(17);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(95,120);
+                        params.setMargins(4, 4, 4, 4);
                         btn.setLayoutParams(params);
                         ligne.addView(btn);
                         btn.setOnClickListener(new View.OnClickListener() {
@@ -144,9 +159,11 @@ public class GameActivity extends AppCompatActivity {
                     for (String lettre : touches2) {
                         Button btn = new Button(this);
                         btn.setText(lettre);
-                        btn.setTextColor(Color.DKGRAY);
-                        btn.setTextSize(18);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,120);
+                        btn.setTextColor(Color.WHITE);
+                        btn.setBackground(drawable);
+                        btn.setTextSize(17);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(95,120);
+                        params.setMargins(4, 4, 4, 4);
                         btn.setLayoutParams(params);
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -163,9 +180,11 @@ public class GameActivity extends AppCompatActivity {
                     //Bouton Delete
                     delete = new Button(this);
                     delete.setText("Del");
-                    delete.setTextColor(Color.DKGRAY);
+                    delete.setTextColor(Color.WHITE);
+                    delete.setBackground(btns_del_enter);
                     delete.setTextSize(14);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150,120);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(170,120);
+                    params.setMargins(4, 4, 4, 4);
                     delete.setLayoutParams(params);
                     delete.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -178,9 +197,11 @@ public class GameActivity extends AppCompatActivity {
                     for (String lettre : touches3) {
                         Button btn = new Button(this);
                         btn.setText(lettre);
-                        btn.setTextColor(Color.DKGRAY);
-                        btn.setTextSize(18);
-                        params = new LinearLayout.LayoutParams(100,120);
+                        btn.setTextColor(Color.WHITE);
+                        btn.setBackground(drawable);
+                        btn.setTextSize(17);
+                        params = new LinearLayout.LayoutParams(95,120);
+                        params.setMargins(4, 4, 4, 4);
                         btn.setLayoutParams(params);
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -193,9 +214,11 @@ public class GameActivity extends AppCompatActivity {
                     }
                     enter = new Button(this);
                     enter.setText("Enter");
-                    enter.setTextColor(Color.DKGRAY);
+                    enter.setTextColor(Color.WHITE);
+                    enter.setBackground(btns_del_enter);
                     enter.setTextSize(14);
                     params = new LinearLayout.LayoutParams(200,120);
+                    params.setMargins(4, 4, 4, 4);
                     enter.setLayoutParams(params);
                     enter.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -210,7 +233,6 @@ public class GameActivity extends AppCompatActivity {
             }
             azerty.addView(ligne);
         }
-
         partie();
     }
 
@@ -280,15 +302,15 @@ public class GameActivity extends AppCompatActivity {
         List<TextView> tentative = tentatives.get(currentLigne);
         if (currentWord.toString().equals(selectWord)) {
             for (int n = 0; n < longueur; n++) {
-                tentative.get(n).setBackgroundColor(Color.GREEN);
+                tentative.get(n).setBackgroundColor(getColor(R.color.found));
             }
             return true;
         } else {
             for (int n = 0; n < longueur; n++) {
                 if (currentWord.charAt(n) == selectWord.charAt(n)) {
-                    tentative.get(n).setBackgroundColor(Color.GREEN);
+                    tentative.get(n).setBackgroundColor(getColor(R.color.found));
                 } else if (selectWord.contains(String.valueOf(currentWord.charAt(n))) && currentWord.charAt(n) != selectWord.charAt(n)) {
-                    tentative.get(n).setBackgroundColor(Color.YELLOW);
+                    tentative.get(n).setBackgroundColor(getColor(R.color.wrong_place));
                 }
             }
             return false;

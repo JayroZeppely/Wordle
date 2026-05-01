@@ -6,4 +6,7 @@
     <color name="gris">#737373</color>
     <color name="red">#C52323</color>
     <color name="replay">#299E38</color>
+    <color name="wrong_place">#D9A223</color>
+    <color name="found">#6FCA78</color>
+    <color name="default_setting">#5A4D9E</color>
 </resources>

@@ -41,6 +41,8 @@ public class SettingsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private Button btn_currentLenght, btn_currentLang;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -72,28 +74,28 @@ public class SettingsFragment extends Fragment {
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("langue", langue);
         editor.apply();
+        reinit_score();
     }
 
     public void changeLongueur(int longueur) {
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("longueur", longueur);
         editor.apply();
+        reinit_score();
     }
 
     public void changeMaxAttempts(int nb) {
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("nbAttempts", nb);
         editor.apply();
+        reinit_score();
     }
 
     public void reinitialiserParams() {
         changeLangue("french");
         changeLongueur(0);
         changeMaxAttempts(6);
-        SharedPreferences spScore = requireActivity().getSharedPreferences("Scores", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = spScore.edit();
-        editor.putInt("score", 0);
-        editor.apply();
+        reinit_score();
     }
 
     @SuppressLint("SetTextI18n")
@@ -112,18 +114,21 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 changeLangue("french");
+                changeLangSelected(btn_french);
             }
         });
         btn_english.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeLangue("english");
+                changeLangSelected(btn_english);
             }
         });
         btn_spain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeLangue("spain");
+                changeLangSelected(btn_spain);
             }
         });
 
@@ -136,16 +141,20 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 changeLongueur(4);
+                changeLengthSelected(btn_four);
             }});
         btn_five.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {changeLongueur(5);}});
+            public void onClick(View v) {changeLongueur(5);
+                changeLengthSelected(btn_five);}});
         btn_six.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {changeLongueur(6);}});
+            public void onClick(View v) {changeLongueur(6);
+                changeLengthSelected(btn_six);}});
         btn_random.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {changeLongueur(0);}});
+            public void onClick(View v) {changeLongueur(0);
+                changeLengthSelected(btn_random);}});
 
         //Slider
         Slider slide = view.findViewById(R.id.slider_attempts);
@@ -171,6 +180,67 @@ public class SettingsFragment extends Fragment {
                 slide.setValue(6);
             }
         });
+
+        //Initialiser les options selectionner
+        String lang = sp.getString("langue", "french");
+        int length = sp.getInt("longueur", 0);
+        switch (lang) {
+            case "french":
+                btn_french.setBackgroundColor(getResources().getColor(R.color.vert));
+                btn_currentLang = btn_french;
+                break;
+            case "english":
+                btn_english.setBackgroundColor(getResources().getColor(R.color.vert));
+                btn_currentLang = btn_english;
+                break;
+            case "spain":
+                btn_spain.setBackgroundColor(getResources().getColor(R.color.vert));
+                btn_currentLang = btn_spain;
+                break;
+        }
+
+        switch (length) {
+            case 0:
+                btn_random.setBackgroundColor(getResources().getColor(R.color.vert));
+                btn_currentLenght = btn_random;
+                break;
+            case 4:
+                btn_four.setBackgroundColor(getResources().getColor(R.color.vert));
+                btn_currentLenght = btn_four;
+                break;
+            case 5:
+                btn_five.setBackgroundColor(getResources().getColor(R.color.vert));
+                btn_currentLenght = btn_five;
+                break;
+            case 6:
+                btn_six.setBackgroundColor(getResources().getColor(R.color.vert));
+                btn_currentLenght = btn_six;
+                break;
+        }
         return view;
+    }
+
+    private void reinit_score() {
+        SharedPreferences spScore = requireActivity().getSharedPreferences("Scores", Context.MODE_PRIVATE);
+        int score = spScore.getInt("score", 0);
+        int best = spScore.getInt("bestScore", 0);
+        SharedPreferences.Editor editor = spScore.edit();
+        if (score > best) {
+            editor.putInt("bestScore", score);
+        }
+        editor.putInt("score", 0);
+        editor.apply();
+    }
+
+    public void changeLangSelected(Button newButton) {
+        btn_currentLang.setBackgroundColor(getResources().getColor(R.color.default_setting));
+        newButton.setBackgroundColor(getResources().getColor(R.color.vert));
+        btn_currentLang = newButton;
+    }
+
+    public void changeLengthSelected(Button newButton) {
+        btn_currentLenght.setBackgroundColor(getResources().getColor(R.color.default_setting));
+        newButton.setBackgroundColor(getResources().getColor(R.color.vert));
+        btn_currentLenght = newButton;
     }
 }

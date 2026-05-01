@@ -10,10 +10,8 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/title_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/title"
         android:text="@string/help"
-        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.069"

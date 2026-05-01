@@ -16,11 +16,13 @@
 
     <style name="texte">
         <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
         <item name="android:textAlignment">viewStart</item>
         <item name="android:justificationMode" tools:targetApi="26">inter_word</item>
         <item name="singleLine">false</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">380dp</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="sub_title">
@@ -30,7 +32,9 @@
         <item name="android:justificationMode" tools:targetApi="26">inter_word</item>
         <item name="singleLine">false</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">380dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
     </style>
 
     <style name="bouton_play" parent="Widget.MaterialComponents.Button">
@@ -40,5 +44,31 @@
         <item name="android:textSize">18sp</item>
         <item name="android:padding">15dp</item>
         <item name="cornerRadius">5dp</item>
+    </style>
+
+    <style name="title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="default_setting">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:backgroundTint">@color/default_setting</item>
+        <item name="android:textSize">12sp</item>
+        <item name="layout_columnWeight">1</item>
+    </style>
+
+    <style name="settings_length">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="layout_columnWeight">1</item>
+        <item name="android:textSize">12sp</item>
+        <item name="layout_gravity">fill_horizontal|center_vertical</item>
     </style>
 </resources>
