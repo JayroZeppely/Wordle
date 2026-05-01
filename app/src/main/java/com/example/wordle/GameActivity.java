@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -234,6 +235,29 @@ public class GameActivity extends AppCompatActivity {
             azerty.addView(ligne);
         }
         partie();
+
+        //Gestion du retour en arrière en cas d'abandon de partie
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                new AlertDialog.Builder(GameActivity.this)
+                        .setTitle("Abandonner la partie")
+                        .setMessage("Voulez-vous vraiment quitter ? Cela sera considéré comme un abandon")
+                        .setPositiveButton("Quitter", (dialog, which) -> {
+                            setEnabled(false);          // désactive le callback
+                            setScore(0);
+                            Intent intent = new Intent(getApplication(), MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        })
+                        .setNegativeButton("Annuler", (dialog, which) -> {
+                            dialog.dismiss();           // ferme la boîte, on reste dans le jeu
+                        })
+                        .show();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     private void partie() {
@@ -323,7 +347,9 @@ public class GameActivity extends AppCompatActivity {
             Intent intent = new Intent(GameActivity.this, ResultActivity.class);
             intent.putExtra("statut", statusPartie);
             intent.putExtra("mot", selectWord);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
     };
 

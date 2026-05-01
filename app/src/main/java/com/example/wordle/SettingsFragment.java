@@ -95,6 +95,10 @@ public class SettingsFragment extends Fragment {
         changeLangue("french");
         changeLongueur(0);
         changeMaxAttempts(6);
+        Button btn_random = requireActivity().findViewById(R.id.btn_random);
+        Button btn_french = requireActivity().findViewById(R.id.btn_french);
+        changeLangSelected(btn_french);
+        changeLengthSelected(btn_random);
         reinit_score();
     }
 

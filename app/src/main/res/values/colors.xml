@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="vert">#239526</color>
+    <color name="vert_clair">#9CE69D</color>
     <color name="gris">#737373</color>
     <color name="red">#C52323</color>
     <color name="replay">#299E38</color>

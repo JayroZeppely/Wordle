@@ -123,6 +123,11 @@
         android:stepSize="1"
         android:valueFrom="4"
         android:valueTo="8"
+        app:haloColor="@color/vert"
+        app:thumbColor="@color/vert"
+        app:thumbStrokeColor="@color/vert"
+        app:trackColorActive="@color/vert"
+        app:trackColorInactive="@color/vert_clair"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_value_nbAttempts" />
